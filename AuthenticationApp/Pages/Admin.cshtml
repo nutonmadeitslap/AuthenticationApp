@@ -1,0 +1,36 @@
+﻿@page
+@model AuthenticationApp.Pages.AdminModel
+@{
+    ViewData["Title"] = "Админская панель";
+}
+
+<h1>Админская панель</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Текущая роль</th>
+            <th>Изменить роль</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@string.Join(", ", user.Roles)</td>
+                <td>
+                    <form method="post" asp-page-handler="ChangeRole">
+                        <input type="hidden" name="SelectedUserId" value="@user.UserId" />
+                        <select name="SelectedRole">
+                            <option value="User" selected="@user.Roles.Contains("User")">User</option>
+                            <option value="Admin" selected="@user.Roles.Contains("Admin")">Admin</option>
+                        </select>
+                        <button type="submit">Сохранить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
