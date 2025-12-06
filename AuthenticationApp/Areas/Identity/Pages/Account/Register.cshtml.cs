@@ -25,7 +25,7 @@ namespace AuthenticationApp.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly RoleManager<IdentityRole> _roleManager; // <- добавляем RoleManager
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -33,7 +33,7 @@ namespace AuthenticationApp.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager) // <- через DI получаем RoleManager
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -92,14 +92,11 @@ namespace AuthenticationApp.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    // ---------------------------
-                    // Назначаем роль User автоматически
                     if (!await _roleManager.RoleExistsAsync("User"))
                     {
                         await _roleManager.CreateAsync(new IdentityRole("User"));
                     }
                     await _userManager.AddToRoleAsync(user, "User");
-                    // ---------------------------
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -129,7 +126,6 @@ namespace AuthenticationApp.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
 
