@@ -37,10 +37,17 @@ namespace AuthenticationApp.Pages
                 });
             }
         }
+
         public async Task<IActionResult> OnPostChangeRoleAsync()
         {
             if (string.IsNullOrEmpty(SelectedUserId) || string.IsNullOrEmpty(SelectedRole))
                 return RedirectToPage();
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser != null && currentUser.Id == SelectedUserId)
+            {
+                return RedirectToPage();
+            }
 
             var user = await _userManager.FindByIdAsync(SelectedUserId);
             if (user != null)

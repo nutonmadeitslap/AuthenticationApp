@@ -21,14 +21,21 @@
                 <td>@user.Email</td>
                 <td>@string.Join(", ", user.Roles)</td>
                 <td>
-                    <form method="post" asp-page-handler="ChangeRole">
-                        <input type="hidden" name="SelectedUserId" value="@user.UserId" />
-                        <select name="SelectedRole">
-                            <option value="User" selected="@user.Roles.Contains("User")">User</option>
-                            <option value="Admin" selected="@user.Roles.Contains("Admin")">Admin</option>
-                        </select>
-                        <button type="submit">Сохранить</button>
-                    </form>
+                    @if (user.UserId != Model.User.FindFirst("sub")?.Value)
+                    {
+                        <form method="post" asp-page-handler="ChangeRole">
+                            <input type="hidden" name="SelectedUserId" value="@user.UserId" />
+                            <select name="SelectedRole">
+                                <option value="User" selected="@user.Roles.Contains("User")">User</option>
+                                <option value="Admin" selected="@user.Roles.Contains("Admin")">Admin</option>
+                            </select>
+                            <button type="submit">Сохранить</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>(нельзя изменить свою роль)</span>
+                    }
                 </td>
             </tr>
         }
