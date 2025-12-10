@@ -1,5 +1,85 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+<style>
+    body {
+        background: linear-gradient(135deg, #4e73df, #1cc88a);
+        min-height: 100vh;
+        background-attachment: fixed;
+        color: #fff;
+    }
+
+    .card {
+        border-radius: 18px;
+        border: none;
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.13);
+        color: #fff;
+    }
+
+    .card-body {
+        padding: 2rem 2.2rem;
+    }
+
+    .form-control, .form-select {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: #fff;
+    }
+
+    .form-control:focus, .form-select:focus {
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 0 0 .25rem rgba(255,255,255,.25);
+        color: #fff;
+    }
+
+    label {
+        color: #e4e4e4 !important;
+    }
+
+    .btn-primary {
+        background: #1a237e;
+        border: none;
+        transition: 0.25s;
+    }
+
+    .btn-primary:hover {
+        background: #283593;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 14px rgba(0,0,0,0.25);
+    }
+
+    .btn-outline-secondary {
+        border-color: #fff;
+        color: #fff;
+    }
+
+    .btn-outline-secondary:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    table {
+        color: #fff !important;
+    }
+
+    thead {
+        background: rgba(255,255,255,0.2) !important;
+    }
+
+    .table-hover tbody tr:hover {
+        background: rgba(255,255,255,0.1) !important;
+    }
+
+    a {
+        color: #fff !important;
+        transition: .2s;
+        text-decoration: underline;
+    }
+
+    a:hover {
+        text-shadow: 0 0 6px #fff;
+    }
+</style>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

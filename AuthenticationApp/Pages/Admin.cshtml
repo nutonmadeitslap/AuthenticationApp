@@ -4,40 +4,55 @@
     ViewData["Title"] = "Админская панель";
 }
 
-<h1>Админская панель</h1>
+<div class="container mt-5">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>Текущая роль</th>
-            <th>Изменить роль</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model.Users)
-        {
-            <tr>
-                <td>@user.Email</td>
-                <td>@string.Join(", ", user.Roles)</td>
-                <td>
-                    @if (user.UserId != Model.User.FindFirst("sub")?.Value)
+    <h1 class="fw-bold mb-4" style="text-shadow: 0 3px 10px rgba(0,0,0,0.4);">
+        Админская панель
+    </h1>
+
+    <div class="card shadow">
+        <div class="card-body p-0">
+
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Текущая роль</th>
+                        <th>Изменить</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
                     {
-                        <form method="post" asp-page-handler="ChangeRole">
-                            <input type="hidden" name="SelectedUserId" value="@user.UserId" />
-                            <select name="SelectedRole">
-                                <option value="User" selected="@user.Roles.Contains("User")">User</option>
-                                <option value="Admin" selected="@user.Roles.Contains("Admin")">Admin</option>
-                            </select>
-                            <button type="submit">Сохранить</button>
-                        </form>
+                        <tr>
+                            <td>@user.Email</td>
+                            <td>@string.Join(", ", user.Roles)</td>
+
+                            <td>
+                                @if (user.UserId != Model.User.FindFirst("sub")?.Value)
+                                {
+                                    <form method="post" asp-page-handler="ChangeRole" class="d-flex gap-2">
+                                        <input type="hidden" name="SelectedUserId" value="@user.UserId" />
+
+                                        <select name="SelectedRole" class="form-select form-select-sm bg-dark text-white border-0">
+                                            <option value="User" selected="@user.Roles.Contains("User")">User</option>
+                                            <option value="Admin" selected="@user.Roles.Contains("Admin")">Admin</option>
+                                        </select>
+
+                                        <button type="submit" class="btn btn-primary btn-sm">Сохранить</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-white-50">(нельзя изменить свою роль)</span>
+                                }
+                            </td>
+                        </tr>
                     }
-                    else
-                    {
-                        <span>(нельзя изменить свою роль)</span>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
